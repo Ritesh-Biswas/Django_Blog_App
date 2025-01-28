@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect # type: ignore
+from django.views.decorators.csrf import csrf_protect # type: ignore
 from .models import Post
 # Create your views here.
 
@@ -19,9 +20,19 @@ def create_post(request):
         return redirect('home')
     return render(request, 'blog/create_post.html')
 
+# def delete_post(request, id):
+#     post = get_object_or_404(Post, id=id)
+#     post.delete()
+#     return redirect('home')
+
+@csrf_protect
 def delete_post(request, id):
-    post = get_object_or_404(Post, id=id)
-    post.delete()
-    return redirect('home')
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=id)
+        post.delete()
+        return redirect('home')
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
 
 
