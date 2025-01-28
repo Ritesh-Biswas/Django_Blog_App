@@ -4,11 +4,11 @@
   {% for post in posts %}
     <li>
       <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-      - <form action="{% url 'delete_post' post.id %}" method="post" style="display: inline;">
+      -<form action="{% url 'delete_post' post.id %}" method="post" style="display: inline;">
         {% csrf_token %}
         <button type="submit">Delete</button>
     </form>
-    
+      {% comment %} - <a href="{% url 'delete_post' post.id %}">Delete</a> {% endcomment %}
     </li>
   {% endfor %}
 </ul>

@@ -25,14 +25,14 @@ def create_post(request):
 #     post.delete()
 #     return redirect('home')
 
-@csrf_protect
+
 def delete_post(request, id):
     if request.method == 'POST':
         post = get_object_or_404(Post, id=id)
         post.delete()
         return redirect('home')
     else:
-        return HttpResponseNotAllowed(['POST'])
+        return HttpResponseNotAllowed(['POST']) # type: ignore
 
 
 
